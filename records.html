@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="View and filter your financial transaction records.">
+    <title>Records - Student Finance Tracker</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="styles/base.css">
+    <link rel="stylesheet" href="styles/layout.css">
+    <link rel="stylesheet" href="styles/components.css">
+</head>
+
+<body>
+
+    <!-- Skip Link for Accessibility -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <header class="app-header">
+        <div class="container">
+            <div class="logo">
+                <h1>Finance<span class="text-primary">Tracker</span></h1>
+            </div>
+            <nav class="main-nav" aria-label="Main Navigation">
+                <ul>
+                    <li><a href="index.html">Dashboard</a></li>
+                    <li><a href="records.html" class="active" aria-current="page">Records</a></li>
+                    <li><a href="add.html">Add</a></li>
+                    <li><a href="settings.html">Settings</a></li>
+                    <li><a href="about.html">About</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main id="main-content">
+        <section id="records" class="section">
+            <div class="container">
+                <header class="section-header">
+                    <h2>Transaction Records</h2>
+                    <div class="search-bar">
+                        <label for="search-input" class="sr-only">Search transactions</label>
+                        <input type="text" id="search-input" placeholder="Search by description, amount, or regex...">
+                    </div>
+                </header>
+
+                <div class="table-container">
+                    <table class="records-table">
+                        <caption>List of recent financial transactions</caption>
+                        <thead>
+                            <tr>
+                                <th scope="col" aria-sort="none"><button type="button">Date <span
+                                            aria-hidden="true">↕</span></button></th>
+                                <th scope="col" aria-sort="none"><button type="button">Description <span
+                                            aria-hidden="true">↕</span></button></th>
+                                <th scope="col">Category</th>
+                                <th scope="col" aria-sort="none"><button type="button">Amount <span
+                                            aria-hidden="true">↕</span></button></th>
+                                <th scope="col">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Example Row -->
+                            <tr>
+                                <td>2025-09-25</td>
+                                <td>Lunch at cafeteria</td>
+                                <td><span class="badge category-food">Food</span></td>
+                                <td class="amount negative">-$12.50</td>
+                                <td>
+                                    <button class="btn-icon" aria-label="Edit transaction">✎</button>
+                                    <button class="btn-icon danger" aria-label="Delete transaction">🗑</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>2025-09-23</td>
+                                <td>Chemistry textbook</td>
+                                <td><span class="badge category-books">Books</span></td>
+                                <td class="amount negative">-$89.99</td>
+                                <td>
+                                    <button class="btn-icon" aria-label="Edit transaction">✎</button>
+                                    <button class="btn-icon danger" aria-label="Delete transaction">🗑</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>2025-09-01</td>
+                                <td>Scholarship Deposit</td>
+                                <td><span class="badge category-income">Income</span></td>
+                                <td class="amount positive">+$2,000.00</td>
+                                <td>
+                                    <button class="btn-icon" aria-label="Edit transaction">✎</button>
+                                    <button class="btn-icon danger" aria-label="Delete transaction">🗑</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="app-footer">
+        <div class="container">
+            <p>&copy; 2026 Student Finance Tracker. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+
+</html>

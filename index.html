@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Student Finance Tracker - Dashboard.">
+    <title>Dashboard - Student Finance Tracker</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="styles/base.css">
+    <link rel="stylesheet" href="styles/layout.css">
+    <link rel="stylesheet" href="styles/components.css">
+</head>
+
+<body>
+
+    <!-- Skip Link for Accessibility -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <header class="app-header">
+        <div class="container">
+            <div class="logo">
+                <h1>Finance<span class="text-primary">Tracker</span></h1>
+            </div>
+            <nav class="main-nav" aria-label="Main Navigation">
+                <ul>
+                    <li><a href="index.html" class="active" aria-current="page">Dashboard</a></li>
+                    <li><a href="records.html">Records</a></li>
+                    <li><a href="add.html">Add</a></li>
+                    <li><a href="settings.html">Settings</a></li>
+                    <li><a href="about.html">About</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main id="main-content">
+        <!-- Dashboard Section -->
+        <section id="dashboard" class="section">
+            <div class="container">
+                <header class="section-header">
+                    <h2>Dashboard</h2>
+                    <p class="text-muted">Overview of your finances</p>
+                </header>
+
+                <!-- Stats Grid -->
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <h3>Total Balance</h3>
+                        <p class="amount positive">$1,250.00</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Monthly Spending</h3>
+                        <p class="amount negative">$450.25</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Top Category</h3>
+                        <p class="highlight">Food</p>
+                    </div>
+                </div>
+
+                <!-- Chart Placeholder -->
+                <div class="chart-container">
+                    <div class="chart-box">
+                        <h3>Last 7 Days Spending</h3>
+                        <div class="chart-placeholder">
+                            <!-- Visual placeholder for chart -->
+                            <div class="chart-bar-group">
+                                <div class="bar" style="height: 40%"></div>
+                                <span class="chart-label">Mon</span>
+                            </div>
+                            <div class="chart-bar-group">
+                                <div class="bar" style="height: 60%"></div>
+                                <span class="chart-label">Tue</span>
+                            </div>
+                            <div class="chart-bar-group">
+                                <div class="bar" style="height: 30%"></div>
+                                <span class="chart-label">Wed</span>
+                            </div>
+                            <div class="chart-bar-group">
+                                <div class="bar" style="height: 80%"></div>
+                                <span class="chart-label">Thu</span>
+                            </div>
+                            <div class="chart-bar-group">
+                                <div class="bar" style="height: 50%"></div>
+                                <span class="chart-label">Fri</span>
+                            </div>
+                            <div class="chart-bar-group">
+                                <div class="bar" style="height: 70%"></div>
+                                <span class="chart-label">Sat</span>
+                            </div>
+                            <div class="chart-bar-group">
+                                <div class="bar" style="height: 45%"></div>
+                                <span class="chart-label">Sun</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="app-footer">
+        <div class="container">
+            <p>&copy; 2026 Student Finance Tracker. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+
+</html>

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Configure application settings.">
+    <title>Settings - Student Finance Tracker</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="styles/base.css">
+    <link rel="stylesheet" href="styles/layout.css">
+    <link rel="stylesheet" href="styles/components.css">
+</head>
+
+<body>
+
+    <!-- Skip Link for Accessibility -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <header class="app-header">
+        <div class="container">
+            <div class="logo">
+                <h1>Finance<span class="text-primary">Tracker</span></h1>
+            </div>
+            <nav class="main-nav" aria-label="Main Navigation">
+                <ul>
+                    <li><a href="index.html">Dashboard</a></li>
+                    <li><a href="records.html">Records</a></li>
+                    <li><a href="add.html">Add</a></li>
+                    <li><a href="settings.html" class="active" aria-current="page">Settings</a></li>
+                    <li><a href="about.html">About</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main id="main-content">
+        <section id="settings" class="section">
+            <div class="container">
+                <header class="section-header">
+                    <h2>Settings</h2>
+                </header>
+                <div class="settings-grid">
+                    <div class="setting-card">
+                        <h3>Currency</h3>
+                        <div class="form-group">
+                            <label for="base-currency">Base Currency</label>
+                            <select id="base-currency">
+                                <option value="USD">USD ($)</option>
+                                <option value="EUR">EUR (€)</option>
+                                <option value="GBP">GBP (£)</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="setting-card">
+                        <h3>Spending Cap</h3>
+                        <div class="form-group">
+                            <label for="spending-cap">Monthly Limit</label>
+                            <input type="number" id="spending-cap" placeholder="1000">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="app-footer">
+        <div class="container">
+            <p>&copy; 2026 Student Finance Tracker. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+
+</html>
