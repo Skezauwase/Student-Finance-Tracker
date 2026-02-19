@@ -1,39 +1,71 @@
 /**
  * records.js
- * Handles displaying, editing, and deleting financial records.
+ * Handles displaying, editing, deleting, sorting, and filtering financial records.
  */
 
 document.addEventListener('DOMContentLoaded', () => {
     const tableBody = document.querySelector('.records-table tbody');
     const searchInput = document.getElementById('search-input');
+    const filterCategory = document.getElementById('filter-category');
+    const sortOrder = document.getElementById('sort-order');
 
     // Regex patterns for validation during edit
     const descriptionRegex = /^\S(?:.*\S)?$/;
     const amountRegex = /^(0|[1-9]\d*)(\.\d{1,2})?$/;
     const categoryRegex = /^[A-Za-z]+(?:[ -][A-Za-z]+)*$/;
 
-    function renderRecords(filterText = '') {
-        const records = window.FinanceStorage.getRecords();
-        tableBody.innerHTML = '';
+    function renderRecords() {
+        let records = window.FinanceStorage.getRecords();
 
-        const filteredRecords = records.filter(record => {
-            const text = filterText.toLowerCase();
-            return (
-                record.description.toLowerCase().includes(text) ||
-                record.amount.toString().includes(text) ||
-                record.category.toLowerCase().includes(text) ||
-                record.date.includes(text)
+        // --- 1. Filter by Search Text ---
+        const searchText = searchInput.value.toLowerCase().trim();
+        if (searchText) {
+            records = records.filter(record =>
+                record.description.toLowerCase().includes(searchText) ||
+                record.amount.toString().includes(searchText) ||
+                record.category.toLowerCase().includes(searchText) ||
+                record.date.includes(searchText)
             );
+        }
+
+        // --- 2. Filter by Category ---
+        const selectedCategory = filterCategory.value;
+        if (selectedCategory) {
+            records = records.filter(record => record.category === selectedCategory);
+        }
+
+        // --- 3. Sort Records ---
+        const sortValue = sortOrder.value;
+        records.sort((a, b) => {
+            switch (sortValue) {
+                case 'date-desc':
+                    return new Date(b.date) - new Date(a.date);
+                case 'date-asc':
+                    return new Date(a.date) - new Date(b.date);
+                case 'category-asc':
+                    return a.category.localeCompare(b.category);
+                case 'category-desc':
+                    return b.category.localeCompare(a.category);
+                case 'amount-asc':
+                    return a.amount - b.amount;
+                case 'amount-desc':
+                    return b.amount - a.amount;
+                default:
+                    return 0;
+            }
         });
 
-        if (filteredRecords.length === 0) {
+        // --- 4. Render Rows ---
+        tableBody.innerHTML = '';
+
+        if (records.length === 0) {
             const row = document.createElement('tr');
             row.innerHTML = `<td colspan="5" style="text-align:center;">No records found.</td>`;
             tableBody.appendChild(row);
             return;
         }
 
-        filteredRecords.forEach(record => {
+        records.forEach(record => {
             const row = document.createElement('tr');
             row.dataset.id = record.id;
 
@@ -60,12 +92,12 @@ document.addEventListener('DOMContentLoaded', () => {
     // Initial Render
     renderRecords();
 
-    // Search Functionality
-    searchInput.addEventListener('input', (e) => {
-        renderRecords(e.target.value);
-    });
+    // Event Listeners for Filters & Sort
+    searchInput.addEventListener('input', renderRecords);
+    filterCategory.addEventListener('change', renderRecords);
+    sortOrder.addEventListener('change', renderRecords);
 
-    // Event Delegation for Actions
+    // Event Delegation for Actions (Edit/Delete)
     tableBody.addEventListener('click', (e) => {
         const target = e.target;
         const row = target.closest('tr');
@@ -77,7 +109,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (target.closest('.delete-btn')) {
             if (confirm('Are you sure you want to delete this record?')) {
                 window.FinanceStorage.deleteRecord(id);
-                renderRecords(searchInput.value);
+                renderRecords(); // Re-render with current filters
             }
         }
 
@@ -93,7 +125,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Cancel Action (dynamically added)
         if (target.closest('.cancel-btn')) {
-            renderRecords(searchInput.value); // Re-render to revert changes
+            renderRecords(); // Re-render to revert changes
         }
     });
 
@@ -115,8 +147,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     <option value="Transport" ${record.category === 'Transport' ? 'selected' : ''}>Transport</option>
                     <option value="Entertainment" ${record.category === 'Entertainment' ? 'selected' : ''}>Entertainment</option>
                     <option value="Fees" ${record.category === 'Fees' ? 'selected' : ''}>Fees</option>
-                    <option value="Other" ${record.category === 'Other' ? 'selected' : ''}>Other</option>
                     <option value="Income" ${record.category === 'Income' ? 'selected' : ''}>Income</option>
+                    <option value="Other" ${record.category === 'Other' ? 'selected' : ''}>Other</option>
                 </select>
             </td>
             <td><input type="number" class="edit-amount" value="${record.amount}" step="0.01" min="0" required></td>
@@ -153,7 +185,6 @@ document.addEventListener('DOMContentLoaded', () => {
             errorMessage += "Invalid Amount.\n";
             amountInput.style.borderColor = "red";
         }
-        // Category from select is usually safe, but good to check if we allowed free text
         if (!categoryRegex.test(category)) {
             isValid = false;
             errorMessage += "Invalid Category.\n";
@@ -179,6 +210,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         // Re-render
-        renderRecords(searchInput.value);
+        renderRecords();
     }
 });
