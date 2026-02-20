@@ -47,22 +47,46 @@
                     <h2>Settings</h2>
                 </header>
                 <div class="settings-grid">
+                    <!-- Theme Settings -->
+                    <div class="setting-card">
+                        <h3>Appearance</h3>
+                        <div class="form-group"
+                            style="display: flex; align-items: center; justify-content: space-between;">
+                            <label for="theme-toggle" style="margin: 0;">Light Mode</label>
+                            <label class="switch">
+                                <input type="checkbox" id="theme-toggle">
+                                <span class="slider round"></span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Currency Settings -->
                     <div class="setting-card">
                         <h3>Currency</h3>
                         <div class="form-group">
-                            <label for="base-currency">Base Currency</label>
+                            <label for="base-currency">Display Currency</label>
                             <select id="base-currency">
                                 <option value="USD">USD ($)</option>
                                 <option value="EUR">EUR (€)</option>
                                 <option value="GBP">GBP (£)</option>
+                                <option value="RWF">RWF (FRw)</option>
                             </select>
                         </div>
+                        <p class="text-muted" style="font-size: 0.75rem;">Calculated values will be displayed based on
+                            approximate conversion rates.</p>
                     </div>
+
+                    <!-- Data Management -->
                     <div class="setting-card">
-                        <h3>Spending Cap</h3>
-                        <div class="form-group">
-                            <label for="spending-cap">Monthly Limit</label>
-                            <input type="number" id="spending-cap" placeholder="1000">
+                        <h3>Data Management</h3>
+                        <div class="form-actions" style="margin-top: 1rem; flex-direction: column; gap: 10px;">
+                            <button id="export-btn" class="btn btn-secondary" style="width: 100%;">
+                                ⬇ Export Data (JSON)
+                            </button>
+                            <button id="import-btn" class="btn btn-primary" style="width: 100%;">
+                                ⬆ Import Data (JSON)
+                            </button>
+                            <input type="file" id="import-file" accept=".json" style="display: none;">
                         </div>
                     </div>
                 </div>
@@ -75,6 +99,8 @@
             <p>&copy; 2026 Student Finance Tracker. All rights reserved.</p>
         </div>
     </footer>
+    <script src="scripts/storage.js"></script>
+    <script src="scripts/settings.js"></script>
 </body>
 
 </html>

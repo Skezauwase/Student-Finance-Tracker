@@ -69,10 +69,20 @@ document.addEventListener('DOMContentLoaded', () => {
             const row = document.createElement('tr');
             row.dataset.id = record.id;
 
-            // Format amount
+            // Currency Formatting
+            const settings = window.FinanceStorage.getSettings() || { currency: 'USD' };
+            const currency = settings.currency;
+            const currencyRates = { 'USD': 1, 'EUR': 0.92, 'GBP': 0.79, 'RWF': 1285 };
+            const currencySymbols = { 'USD': '$', 'EUR': '€', 'GBP': '£', 'RWF': 'FRw ' };
+
+            const rate = currencyRates[currency] || 1;
+            const symbol = currencySymbols[currency] || '$';
+            const decimals = currency === 'RWF' ? 0 : 2;
+
             const amountClass = record.category.toLowerCase() === 'income' ? 'positive' : 'negative';
             const amountPrefix = record.category.toLowerCase() === 'income' ? '+' : '-';
-            const displayAmount = `${amountPrefix}$${record.amount.toFixed(2)}`;
+            const convertedAmount = record.amount * rate;
+            const displayAmount = `${amountPrefix}${symbol}${convertedAmount.toFixed(decimals)}`;
 
             row.innerHTML = `
                 <td class="cell-date">${record.date}</td>

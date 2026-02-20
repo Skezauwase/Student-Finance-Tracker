@@ -42,8 +42,34 @@ document.addEventListener('DOMContentLoaded', () => {
         categoryCounts[cat] = (categoryCounts[cat] || 0) + 1;
     });
 
+    // Currency Conversion
+    const settings = window.FinanceStorage.getSettings() || { currency: 'USD' };
+    const currency = settings.currency;
+
+    // Exchange Rates (approximate)
+    const currencyRates = {
+        'USD': 1,
+        'EUR': 0.92,
+        'GBP': 0.79,
+        'RWF': 1285
+    };
+
+    const currencySymbols = {
+        'USD': '$',
+        'EUR': '€',
+        'GBP': '£',
+        'RWF': 'FRw '
+    };
+
+    const rate = currencyRates[currency] || 1;
+    const symbol = currencySymbols[currency] || '$';
+
     const formatCurrency = (num) => {
-        return (num < 0 ? '-' : '') + '$' + Math.abs(num).toFixed(2);
+        const converted = num * rate;
+        // For RWF, usually no decimals or 0 decimals, but we'll keep 2 generally or 0 for large numbers?
+        // Let's stick to 2 for consistency unless RWF.
+        const decimals = currency === 'RWF' ? 0 : 2;
+        return (converted < 0 ? '-' : '') + symbol + Math.abs(converted).toFixed(decimals);
     };
 
     totalAmountDisplay.textContent = formatCurrency(totalAmount);

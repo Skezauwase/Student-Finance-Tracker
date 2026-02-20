@@ -4,6 +4,7 @@
  */
 
 const STORAGE_KEY = 'finance_tracker_records';
+const SETTINGS_KEY = 'finance_tracker_settings';
 
 /**
  * Retrieves all records from localStorage.
@@ -48,10 +49,72 @@ function deleteRecord(id) {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(records));
 }
 
+// --- Settings Management ---
+
+/**
+ * Retrieves the current settings.
+ * @returns {Object} Settings object (defaults: theme='dark', currency='USD').
+ */
+function getSettings() {
+    const settings = localStorage.getItem(SETTINGS_KEY);
+    return settings ? JSON.parse(settings) : { theme: 'dark', currency: 'USD' };
+}
+
+/**
+ * Saves the settings to local storage.
+ * @param {Object} settings - The settings object to save.
+ */
+function saveSettings(settings) {
+    localStorage.setItem(SETTINGS_KEY, JSON.stringify(settings));
+}
+
+// --- Import / Export ---
+
+/**
+ * Exports data as a JSON string.
+ * @returns {string} JSON string of all records.
+ */
+function exportData() {
+    const records = getRecords();
+    return JSON.stringify(records, null, 2);
+}
+
+/**
+ * Imports data from a JSON object.
+ * Validates the format before saving.
+ * @param {Array} importedRecords - The parsed JSON array of records.
+ * @returns {Object} { success: boolean, message: string }
+ */
+function importData(importedRecords) {
+    if (!Array.isArray(importedRecords)) {
+        return { success: false, message: "Invalid format: Data must be an array." };
+    }
+
+    // Basic validation of the first item (if exists)
+    if (importedRecords.length > 0) {
+        const sample = importedRecords[0];
+        if (!sample.hasOwnProperty('description') || !sample.hasOwnProperty('amount') || !sample.hasOwnProperty('date')) {
+            return { success: false, message: "Invalid format: Missing required fields (description, amount, date)." };
+        }
+    }
+
+    // Merge strategy: Append imported records to existing ones? Or replace?
+    // User prompt said "store the uploded values in the localstorage same with the already/none data".
+    // This implies appending/merging.
+    const currentRecords = getRecords();
+    const newRecords = [...currentRecords, ...importedRecords];
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(newRecords));
+    return { success: true, message: `Successfully imported ${importedRecords.length} records.` };
+}
+
 // Expose functions to the global scope
 window.FinanceStorage = {
     getRecords,
     saveRecord,
     updateRecord,
-    deleteRecord
+    deleteRecord,
+    getSettings,
+    saveSettings,
+    exportData,
+    importData
 };

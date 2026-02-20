@@ -51,29 +51,27 @@
     --transition-normal: 0.3s ease;
 }
 
-/* Light Theme System Support (No JS) */
-@media (prefers-color-scheme: light) {
-    :root {
-        --color-bg-body: #f8fafc;
-        /* Slate 50 */
-        --color-bg-surface: #ffffff;
-        /* White */
-        --color-bg-surface-glass: rgba(255, 255, 255, 0.7);
-        --color-primary: #4f46e5;
-        /* Indigo 600 */
-        --color-primary-hover: #4338ca;
-        /* Indigo 700 */
-        --color-text-main: #0f172a;
-        /* Slate 900 */
-        --color-text-muted: #64748b;
-        /* Slate 500 */
-        --color-border: #e2e8f0;
-        /* Slate 200 */
+/* Light Theme (Toggled via JS) */
+.light-theme {
+    --color-bg-body: #f8fafc;
+    /* Slate 50 */
+    --color-bg-surface: #ffffff;
+    /* White */
+    --color-bg-surface-glass: rgba(255, 255, 255, 0.7);
+    --color-primary: #4f46e5;
+    /* Indigo 600 */
+    --color-primary-hover: #4338ca;
+    /* Indigo 700 */
+    --color-text-main: #0f172a;
+    /* Slate 900 */
+    --color-text-muted: #64748b;
+    /* Slate 500 */
+    --color-border: #e2e8f0;
+    /* Slate 200 */
 
-        --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-        --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-        --shadow-glow: 0 0 15px rgba(79, 70, 229, 0.2);
-    }
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    --shadow-glow: 0 0 15px rgba(79, 70, 229, 0.2);
 }
 
 *,
